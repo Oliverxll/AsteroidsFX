@@ -3,7 +3,11 @@ package dk.sdu.mmmi.cbse.playersystem;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.player.Player;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
+
+import javafx.scene.paint.Color;
+
 public class PlayerPlugin implements IGamePluginService {
 
     private Entity player;
@@ -27,6 +31,7 @@ public class PlayerPlugin implements IGamePluginService {
         playerShip.setY(gameData.getDisplayWidth()/2);
         playerShip.setRadius(8);
         playerShip.setHealth(3);
+        playerShip.setColor(Color.GREEN);
         return playerShip;
     }
 

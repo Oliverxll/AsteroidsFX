@@ -2,7 +2,8 @@ package dk.sdu.mmmi.cbse.common.data;
 
 import java.io.Serializable;
 import java.util.UUID;
-import javafx.scene.paint.Paint;
+
+import javafx.scene.paint.Color;
 
 public class Entity implements Serializable {
 
@@ -13,7 +14,7 @@ public class Entity implements Serializable {
     private double y;
     private double rotation;
     private float radius;
-    private Paint color;
+    private Color color;
     private int health;
             
 
@@ -64,11 +65,11 @@ public class Entity implements Serializable {
         return this.radius;
     }
 
-    public Paint getColor() {
-        return color;
+    public Color getColor() {
+        return color == null ? color = Color.BLACK : color;
     }
 
-    public void setColor(Paint color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 

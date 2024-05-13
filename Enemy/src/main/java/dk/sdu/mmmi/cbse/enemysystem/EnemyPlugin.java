@@ -7,6 +7,7 @@ import dk.sdu.mmmi.cbse.common.enemy.Enemy;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 import java.util.Random;
+import javafx.scene.paint.Color;
 
 public class EnemyPlugin implements IGamePluginService {
     @Override
@@ -27,7 +28,7 @@ public class EnemyPlugin implements IGamePluginService {
         enemy.setY(rand.nextInt(gameData.getDisplayWidth()));
         enemy.setRadius(8);
         enemy.setHealth(3);
-
+        enemy.setColor(Color.RED);
         return enemy;
     }
 
