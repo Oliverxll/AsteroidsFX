@@ -20,7 +20,8 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
             bullet.setX(bullet.getX() + changeX * moveSpeed * gameData.getDeltaTime());
             bullet.setY(bullet.getY() + changeY * moveSpeed * gameData.getDeltaTime());
 
-            if (bullet.getX() >= gameData.getDisplayWidth() || bullet.getY() >= gameData.getDisplayHeight()) {
+            // Remove bullet if it goes out of bounds.
+            if (bullet.getX() >= gameData.getDisplayWidth() || bullet.getX() <= 0 || bullet.getY() >= gameData.getDisplayHeight() || bullet.getY() <= 0) {
                 world.removeEntity(bullet);
             }
         }
