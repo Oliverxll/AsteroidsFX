@@ -14,6 +14,7 @@ public class Entity implements Serializable {
     private double rotation;
     private float radius;
     private Paint color;
+    private int health;
             
 
     public String getID() {
@@ -69,5 +70,13 @@ public class Entity implements Serializable {
 
     public void setColor(Paint color) {
         this.color = color;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 }
