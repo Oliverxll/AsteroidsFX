@@ -21,8 +21,11 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
-            
         for (Entity player : world.getEntities(Player.class)) {
+            if (player.getHealth() <= 0) {
+                world.removeEntity(player);
+            }
+
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
                 player.setRotation(player.getRotation() - turnSpeed * gameData.getDeltaTime());
             }
