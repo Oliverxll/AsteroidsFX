@@ -97,6 +97,8 @@ public class Main extends Application {
     }
 
     private void update() {
+        gameData.setDeltaTime();
+
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
             entityProcessorService.process(gameData, world);
         }
