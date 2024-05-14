@@ -1,5 +1,9 @@
 package dk.sdu.mmmi.cbse.collisionsystem;
 
+import dk.sdu.mmmi.cbse.common.asteroids.Asteroid;
+import dk.sdu.mmmi.cbse.common.bullet.Bullet;
+import dk.sdu.mmmi.cbse.common.enemy.Enemy;
+import dk.sdu.mmmi.cbse.common.player.Player;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -12,6 +16,7 @@ public class CollisionDetector implements IPostEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
+
         // two for loops for all entities in the world
         for (Entity entity1 : world.getEntities()) {
             for (Entity entity2 : world.getEntities()) {
@@ -22,9 +27,33 @@ public class CollisionDetector implements IPostEntityProcessingService {
                 }
 
                 // CollisionDetection
-                if (this.collides(entity1, entity2)) {
-                    world.removeEntity(entity1);
-                    world.removeEntity(entity2);
+                if (collides(entity1, entity2)) {
+
+                    // As per Lab requirement, remove player if asteroid collides with player.
+                    // Asteroid collisions.
+                    if (entity1 instanceof Asteroid) {
+                        if (entity2 instanceof Player) {
+                            entity2.setHealth(0); // Player removed in PlayerControlSystem.
+                            return; // Exit loop, player is dead and game should end.
+                        }
+                    }
+
+                    // Bullet collisions.
+                    if (entity1 instanceof Bullet) {
+                        if (entity2 instanceof Asteroid) {
+                            entity2.setHealth(0); // Asteroid handled in AsteroidControlSystem.
+                        }
+
+                        if (entity2 instanceof Enemy) {
+                            entity2.setHealth(entity2.getHealth() - 1); // Enemy handled in EnemyControlSystem.
+                        }
+
+                        if (entity2 instanceof Player) {
+                            entity2.setHealth(entity2.getHealth() - 1); // Player handled in PlayerControlSystem.
+                        }
+
+                        world.removeEntity(entity1);
+                    }
                 }
             }
         }
