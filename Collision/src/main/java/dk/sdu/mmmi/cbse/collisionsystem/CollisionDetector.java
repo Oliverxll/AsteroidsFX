@@ -38,6 +38,14 @@ public class CollisionDetector implements IPostEntityProcessingService {
                         }
                     }
 
+                    // Enemy collisions.
+                    if (entity1 instanceof Enemy) {
+                        if (entity2 instanceof Player) {
+                            entity2.setHealth(0); // Player removed in PlayerControlSystem.
+                            return; // Exit loop, player is dead and game should end.
+                        }
+                    }
+
                     // Bullet collisions.
                     if (entity1 instanceof Bullet) {
                         if (entity2 instanceof Asteroid) {
