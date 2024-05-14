@@ -10,6 +10,8 @@ import java.util.Random;
 import javafx.scene.paint.Color;
 
 public class EnemyPlugin implements IGamePluginService {
+    private Entity enemy;
+
     @Override
     public void start(GameData gameData, World world) {
         int toSpawn = 1;
@@ -20,10 +22,11 @@ public class EnemyPlugin implements IGamePluginService {
     }
 
     private Entity createEnemy(GameData gameData) {
-        Entity enemy = new Enemy();
+        enemy = new Enemy();
         Random rand = new Random();
         // Most is copied from player.
         enemy.setPolygonCoordinates(-5,-5,10,0,-5,5);
+        // Spawn random somewhere within game window.
         enemy.setX(rand.nextInt(gameData.getDisplayWidth()));
         enemy.setY(rand.nextInt(gameData.getDisplayWidth()));
         enemy.setRadius(8);
@@ -34,6 +37,6 @@ public class EnemyPlugin implements IGamePluginService {
 
     @Override
     public void stop(GameData gameData, World world) {
-
+        world.removeEntity(enemy);
     }
 }
