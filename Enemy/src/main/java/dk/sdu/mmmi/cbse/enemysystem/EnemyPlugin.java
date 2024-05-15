@@ -14,7 +14,7 @@ public class EnemyPlugin implements IGamePluginService {
 
     @Override
     public void start(GameData gameData, World world) {
-        int toSpawn = 1;
+        int toSpawn = 2;
 
         for (int i = 0; i < toSpawn; i++) {
             world.addEntity(createEnemy(gameData));
@@ -30,6 +30,7 @@ public class EnemyPlugin implements IGamePluginService {
         enemy.setX(rand.nextInt(gameData.getDisplayWidth()));
         enemy.setY(rand.nextInt(gameData.getDisplayWidth()));
         enemy.setRadius(8);
+        enemy.setRotation(rand.nextInt(360));
         enemy.setHealth(3);
         enemy.setColor(Color.RED);
         return enemy;
