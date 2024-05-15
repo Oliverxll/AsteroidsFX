@@ -30,7 +30,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
             }
 
             fireCooldown += gameData.getDeltaTime();
-            System.out.println(fireCooldown);
 
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
                 player.setRotation(player.getRotation() - turnSpeed * gameData.getDeltaTime());
@@ -50,7 +49,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
                             spi -> {world.addEntity(spi.createBullet(player, gameData));}
                     );
 
-                    fireCooldown -= fireRate; // Minus equals takes care of excess time.
+                    fireCooldown = 0;
                 }
             }
             
