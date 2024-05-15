@@ -16,8 +16,11 @@ import static java.util.stream.Collectors.toList;
 
 public class PlayerControlSystem implements IEntityProcessingService {
 
-    private int turnSpeed = 150;
-    private int moveSpeed = 200;
+    private final int turnSpeed = 150;
+    private final int moveSpeed = 200;
+
+    private static final double fireRate = 0.25;
+    private static double fireCooldown = fireRate;
 
     @Override
     public void process(GameData gameData, World world) {
@@ -25,6 +28,9 @@ public class PlayerControlSystem implements IEntityProcessingService {
             if (player.getHealth() <= 0) {
                 world.removeEntity(player);
             }
+
+            fireCooldown += gameData.getDeltaTime();
+            System.out.println(fireCooldown);
 
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
                 player.setRotation(player.getRotation() - turnSpeed * gameData.getDeltaTime());
@@ -38,10 +44,14 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 player.setX(player.getX() + changeX * gameData.getDeltaTime() * moveSpeed);
                 player.setY(player.getY() + changeY * gameData.getDeltaTime() * moveSpeed);
             }
-            if(gameData.getKeys().isDown(GameKeys.SPACE)) {                
-                getBulletSPIs().stream().findFirst().ifPresent(
-                        spi -> {world.addEntity(spi.createBullet(player, gameData));}
-                );
+            if(gameData.getKeys().isDown(GameKeys.SPACE)) {
+                if (fireCooldown >= fireRate) {
+                    getBulletSPIs().stream().findFirst().ifPresent(
+                            spi -> {world.addEntity(spi.createBullet(player, gameData));}
+                    );
+
+                    fireCooldown -= fireRate; // Minus equals takes care of excess time.
+                }
             }
             
         if (player.getX() < 0) {
