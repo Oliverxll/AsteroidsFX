@@ -42,7 +42,7 @@ public class AsteroidControlSystem implements IEntityProcessingService {
             asteroid.setY(asteroid.getY() + changeY * moveSpeed * gameData.getDeltaTime());
 
             if (asteroid.getX() < 0) {
-                asteroid.setX(asteroid.getX() - gameData.getDisplayWidth());
+                asteroid.setX(asteroid.getX() + gameData.getDisplayWidth());
             }
 
             if (asteroid.getX() > gameData.getDisplayWidth()) {
@@ -50,7 +50,7 @@ public class AsteroidControlSystem implements IEntityProcessingService {
             }
 
             if (asteroid.getY() < 0) {
-                asteroid.setY(asteroid.getY() - gameData.getDisplayHeight());
+                asteroid.setY(asteroid.getY() + gameData.getDisplayHeight());
             }
 
             if (asteroid.getY() > gameData.getDisplayHeight()) {
