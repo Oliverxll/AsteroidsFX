@@ -36,7 +36,7 @@ public class AsteroidPlugin implements IGamePluginService {
         asteroid.setY(0);
         asteroid.setRadius(size);
         // Randomly rotating asteroids.
-        asteroid.setRotation(rnd.nextInt(90));
+        asteroid.setRotation(rnd.nextInt(360));
         asteroid.setHealth(1);
         return asteroid;
     }
