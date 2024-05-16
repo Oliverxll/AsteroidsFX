@@ -21,7 +21,7 @@ public class EnemyPlugin implements IGamePluginService {
         }
     }
 
-    private Entity createEnemy(GameData gameData) {
+    public Entity createEnemy(GameData gameData) {
         enemy = new Enemy();
         Random rand = new Random();
         // Most is copied from player.
@@ -33,6 +33,8 @@ public class EnemyPlugin implements IGamePluginService {
         enemy.setRotation(rand.nextInt(360));
         enemy.setHealth(3);
         enemy.setColor(Color.RED);
+        enemy.setMoveSpeed(150);
+        enemy.setTurnSpeed(100);
         return enemy;
     }
 

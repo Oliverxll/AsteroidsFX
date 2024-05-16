@@ -16,6 +16,8 @@ public class Entity implements Serializable {
     private float radius;
     private Color color;
     private int health;
+    private int moveSpeed;
+    private int turnSpeed;
             
 
     public String getID() {
@@ -79,5 +81,21 @@ public class Entity implements Serializable {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public int getMoveSpeed() {
+        return moveSpeed;
+    }
+
+    public void setMoveSpeed(int moveSpeed) {
+        this.moveSpeed = moveSpeed;
+    }
+
+    public int getTurnSpeed() {
+        return turnSpeed;
+    }
+
+    public void setTurnSpeed(int turnSpeed) {
+        this.turnSpeed = turnSpeed;
     }
 }

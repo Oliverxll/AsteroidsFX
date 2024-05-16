@@ -15,14 +15,24 @@ import static java.util.stream.Collectors.toList;
 
 public class EnemyControlSystem implements IEntityProcessingService {
 
-    private int turnSpeed = 100;
-    private int moveSpeed = 150;
-
     private Random rand = new Random();
 
+    // Static because spawn rate is the same for all enemies.
+    private static double spawnRate = 10;
+    private static double spawnTimer = 0.0;
 
     @Override
     public void process(GameData gameData, World world) {
+
+        spawnTimer += gameData.getDeltaTime();
+
+        if (spawnTimer >= spawnRate) {
+            // This takes excess milliseconds into account.
+            spawnTimer -= spawnRate;
+            System.out.println("Spawning enemy");
+
+            world.addEntity(new EnemyPlugin().createEnemy(gameData));
+        }
 
         for (Entity entity : world.getEntities(Enemy.class)) {
             Enemy enemy = (Enemy) entity;
@@ -32,31 +42,25 @@ public class EnemyControlSystem implements IEntityProcessingService {
             }
 
             enemy.setFireCooldown(enemy.getFireCooldown() + gameData.getDeltaTime());
+            System.out.println("Fire cooldown: " + enemy.getFireCooldown());
 
-            double random = Math.random();
 
-            // Calculate the threshold for shooting, which decreases over time.
-            // Makes shooting more likely the longer the enemy has not shot while still keeping it somewhat random.
-            double threshold = Math.max(0.01, 1 - enemy.getFireCooldown());
-
-            // If the random number is less than the threshold, shoot
-            if (random < threshold) {
+            if (enemy.getFireCooldown() >= enemy.getFireRate()) {
                 getBulletSPIs().stream().findFirst().ifPresent(
                         spi -> {world.addEntity(spi.createBullet(enemy, gameData));}
                 );
 
-                // Reset the cooldown
                 enemy.setFireCooldown(0);
             }
 
             double changeX = Math.cos(Math.toRadians(enemy.getRotation()));
             double changeY = Math.sin(Math.toRadians(enemy.getRotation()));
 
-            enemy.setRotation(enemy.getRotation() + rand.nextInt(-2, 3) * turnSpeed * gameData.getDeltaTime());
+            enemy.setRotation(enemy.getRotation() + rand.nextInt(-2, 3) * enemy.getRotation() * gameData.getDeltaTime());
             rand.setSeed(System.currentTimeMillis());
 
-            enemy.setX(enemy.getX() + changeX * moveSpeed * gameData.getDeltaTime());
-            enemy.setY(enemy.getY() + changeY * moveSpeed * gameData.getDeltaTime());
+            enemy.setX(enemy.getX() + changeX * enemy.getMoveSpeed() * gameData.getDeltaTime());
+            enemy.setY(enemy.getY() + changeY * enemy.getMoveSpeed() * gameData.getDeltaTime());
 
             if (enemy.getX() < 0) {
                 enemy.setX(enemy.getX() + gameData.getDisplayWidth());

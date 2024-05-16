@@ -27,7 +27,7 @@ public class AsteroidPlugin implements IGamePluginService {
         }
     }
 
-    private Entity createAsteroid(GameData gameData) {
+    public Entity createAsteroid(GameData gameData) {
         Entity asteroid = new Asteroid();
         Random rnd = new Random();
         int size = rnd.nextInt(10) + 5;
@@ -38,6 +38,7 @@ public class AsteroidPlugin implements IGamePluginService {
         // Randomly rotating asteroids.
         asteroid.setRotation(rnd.nextInt(360));
         asteroid.setHealth(1);
+        asteroid.setMoveSpeed(100);
         return asteroid;
     }
 }
