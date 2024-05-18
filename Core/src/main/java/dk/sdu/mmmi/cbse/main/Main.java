@@ -12,9 +12,12 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
 import static java.util.stream.Collectors.toList;
+
+import dk.sdu.mmmi.cbse.map.MapPlugin;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
@@ -71,7 +74,13 @@ public class Main extends Application {
 
         // Lookup all Game Plugins using ServiceLoader
         for (IGamePluginService iGamePlugin : getPluginServices()) {
+            System.out.println("Starting plugin: " + iGamePlugin.getClass().getSimpleName());
             iGamePlugin.start(gameData, world);
+
+            if (iGamePlugin instanceof MapPlugin) {
+                ImageView mapView = ((MapPlugin) iGamePlugin).getMap();
+                gameWindow.getChildren().add(mapView);
+            }
         }
         for (Entity entity : world.getEntities()) {
             Polygon polygon = new Polygon(entity.getPolygonCoordinates());
