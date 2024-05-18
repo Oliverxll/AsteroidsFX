@@ -9,16 +9,14 @@ import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 public class BulletControlSystem implements IEntityProcessingService, BulletSPI {
 
-    private int moveSpeed = 400;
-
     @Override
     public void process(GameData gameData, World world) {
 
         for (Entity bullet : world.getEntities(Bullet.class)) {
             double changeX = Math.cos(Math.toRadians(bullet.getRotation()));
             double changeY = Math.sin(Math.toRadians(bullet.getRotation()));
-            bullet.setX(bullet.getX() + changeX * moveSpeed * gameData.getDeltaTime());
-            bullet.setY(bullet.getY() + changeY * moveSpeed * gameData.getDeltaTime());
+            bullet.setX(bullet.getX() + changeX * bullet.getMoveSpeed() * gameData.getDeltaTime());
+            bullet.setY(bullet.getY() + changeY * bullet.getMoveSpeed() * gameData.getDeltaTime());
 
             // Remove bullet if it goes out of bounds.
             if (bullet.getX() >= gameData.getDisplayWidth() || bullet.getX() <= 0 || bullet.getY() >= gameData.getDisplayHeight() || bullet.getY() <= 0) {

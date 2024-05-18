@@ -6,15 +6,15 @@
         <artifactId>asteroids.jpms</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>CommonPlayer</artifactId>
-    <name>CommonPlayer</name>
+    <artifactId>Weapon</artifactId>
+    <name>Archetype - Weapon</name>
     <url>http://maven.apache.org</url>
-    <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>dk.sdu.mmmi.cbse</groupId>
             <artifactId>Common</artifactId>
             <version>1.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>dk.sdu.mmmi.cbse</groupId>
@@ -23,4 +23,5 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+    <packaging>jar</packaging>
 </project>

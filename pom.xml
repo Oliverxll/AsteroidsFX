@@ -12,6 +12,7 @@
 
     <modules>
         <module>Core</module>
+        <module>Collision</module>
         <module>Common</module>
         <module>CommonPlayer</module>
         <module>Player</module>
@@ -21,7 +22,9 @@
         <module>Enemy</module>
         <module>CommonBullet</module>
         <module>Bullet</module>
-        <module>Collision</module>
+        <module>CommonWeapon</module>
+        <module>Weapon</module>
+        <module>Map</module>
     </modules>
     <properties>
         <java>java</java>

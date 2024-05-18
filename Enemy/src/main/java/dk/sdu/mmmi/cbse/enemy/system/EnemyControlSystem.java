@@ -1,11 +1,11 @@
 package dk.sdu.mmmi.cbse.enemy.system;
 
-import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.enemy.Enemy;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
+import dk.sdu.mmmi.cbse.weapon.WeaponSPI;
 
 import java.util.Collection;
 import java.util.Random;
@@ -41,15 +41,18 @@ public class EnemyControlSystem implements IEntityProcessingService {
                 world.removeEntity(enemy);
             }
 
-            enemy.setFireCooldown(enemy.getFireCooldown() + gameData.getDeltaTime());
-
-
-            if (enemy.getFireCooldown() >= enemy.getFireRate()) {
-                getBulletSPIs().stream().findFirst().ifPresent(
-                        spi -> {world.addEntity(spi.createBullet(enemy, gameData));}
+            if (enemy.getWeapon() != null) {
+                enemy.getWeapon().setIsShooting(true);
+            }
+            else {
+                getWeaponSPIs().stream().findFirst().ifPresent(
+                        spi -> {
+                            System.out.println("Creating weapon.");
+                            enemy.setWeapon(spi.createWeapon(enemy));
+                            enemy.getWeapon().setFireRate(1);
+                            world.addEntity(enemy.getWeapon());
+                        }
                 );
-
-                enemy.setFireCooldown(0);
             }
 
             double changeX = Math.cos(Math.toRadians(enemy.getRotation()));
@@ -79,7 +82,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
         }
     }
 
-    private Collection<? extends BulletSPI> getBulletSPIs() {
-        return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+    private Collection<? extends WeaponSPI> getWeaponSPIs() {
+        return ServiceLoader.load(WeaponSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 }

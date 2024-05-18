@@ -33,6 +33,7 @@ public class AsteroidControlSystem implements IEntityProcessingService {
             // Remove if dead.
             if (asteroid.getHealth() <= 0) {
                 world.removeEntity(asteroid);
+                continue;
             }
 
             if (asteroidSplitter != null) {
