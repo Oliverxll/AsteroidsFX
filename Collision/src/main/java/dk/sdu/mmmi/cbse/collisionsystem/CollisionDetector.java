@@ -48,16 +48,21 @@ public class CollisionDetector implements IPostEntityProcessingService {
 
                     // Bullet collisions.
                     if (entity1 instanceof Bullet) {
-                        if (entity2 instanceof Asteroid) {
-                            entity2.setHealth(0); // Asteroid handled in AsteroidControlSystem.
+                        if (((Bullet) entity1).getShooter() instanceof Player) {
+                            if (entity2 instanceof Asteroid) {
+                                entity2.setHealth(entity2.getHealth() - 1); // Asteroid handled in AsteroidControlSystem.
+                                ((Asteroid) entity2).setHit(true);
+                            }
+
+                            if (entity2 instanceof Enemy) {
+                                entity2.setHealth(entity2.getHealth() - 1); // Enemy handled in EnemyControlSystem.
+                            }
                         }
 
-                        if (entity2 instanceof Enemy) {
-                            entity2.setHealth(entity2.getHealth() - 1); // Enemy handled in EnemyControlSystem.
-                        }
-
-                        if (entity2 instanceof Player) {
-                            entity2.setHealth(entity2.getHealth() - 1); // Player handled in PlayerControlSystem.
+                        if (((Bullet) entity1).getShooter() instanceof Enemy) {
+                            if (entity2 instanceof Player) {
+                                entity2.setHealth(entity2.getHealth() - 1); // Player handled in PlayerControlSystem.
+                            }
                         }
 
                         world.removeEntity(entity1);

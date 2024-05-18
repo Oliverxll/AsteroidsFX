@@ -13,15 +13,15 @@
     <modules>
         <module>Core</module>
         <module>Common</module>
+        <module>CommonPlayer</module>
         <module>Player</module>
-        <module>Bullet</module>
-        <module>CommonBullet</module>
         <module>CommonAsteroids</module>
         <module>Asteroids</module>
-        <module>Collision</module>
-        <module>Enemy</module>
         <module>CommonEnemy</module>
-        <module>CommonPlayer</module>
+        <module>Enemy</module>
+        <module>CommonBullet</module>
+        <module>Bullet</module>
+        <module>Collision</module>
     </modules>
     <properties>
         <java>java</java>

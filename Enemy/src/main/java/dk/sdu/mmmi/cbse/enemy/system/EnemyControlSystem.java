@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.cbse.enemysystem;
+package dk.sdu.mmmi.cbse.enemy.system;
 
 import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
 import dk.sdu.mmmi.cbse.common.data.Entity;
@@ -42,7 +42,6 @@ public class EnemyControlSystem implements IEntityProcessingService {
             }
 
             enemy.setFireCooldown(enemy.getFireCooldown() + gameData.getDeltaTime());
-            System.out.println("Fire cooldown: " + enemy.getFireCooldown());
 
 
             if (enemy.getFireCooldown() >= enemy.getFireRate()) {

@@ -12,7 +12,7 @@ public class AsteroidControlSystem implements IEntityProcessingService {
     private IAsteroidSplitter asteroidSplitter = new AsteroidSplitterImpl();
 
     // Static because spawn rate is the same for all asteroids.
-    private static double spawnRate = 2.5;
+    private static double spawnRate = 5;
     private static double spawnTimer = 0.0;
 
     @Override
@@ -28,9 +28,20 @@ public class AsteroidControlSystem implements IEntityProcessingService {
         }
 
         for (Entity asteroid : world.getEntities(Asteroid.class)) {
+
+
             // Remove if dead.
             if (asteroid.getHealth() <= 0) {
                 world.removeEntity(asteroid);
+            }
+
+            if (asteroidSplitter != null) {
+                if (((Asteroid) asteroid).isHit()) {
+                    System.out.println("Asteroid hit.");
+                    System.out.println("Trying to split.");
+                    asteroidSplitter.createSplitAsteroid(asteroid, world);
+                    ((Asteroid) asteroid).setHit(false);
+                }
             }
 
             double changeX = Math.cos(Math.toRadians(asteroid.getRotation()));
@@ -58,17 +69,4 @@ public class AsteroidControlSystem implements IEntityProcessingService {
         }
 
     }
-
-    /**
-     * Dependency Injection using OSGi Declarative Services
-     */
-    public void setAsteroidSplitter(IAsteroidSplitter asteroidSplitter) {
-        this.asteroidSplitter = asteroidSplitter;
-    }
-
-    public void removeAsteroidSplitter(IAsteroidSplitter asteroidSplitter) {
-        this.asteroidSplitter = null;
-    }
-
-
 }
