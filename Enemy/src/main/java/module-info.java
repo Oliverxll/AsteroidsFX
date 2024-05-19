@@ -7,10 +7,9 @@ module Enemy {
     requires javafx.graphics;
     requires Common;
     requires CommonEnemy;
-    requires Weapon;
     requires CommonWeapon;
 
-    uses dk.sdu.mmmi.cbse.weapon.WeaponSPI;
+    uses dk.sdu.mmmi.cbse.common.weapon.WeaponSPI;
 
     provides IGamePluginService with EnemyPlugin;
     provides IEntityProcessingService with EnemyControlSystem;

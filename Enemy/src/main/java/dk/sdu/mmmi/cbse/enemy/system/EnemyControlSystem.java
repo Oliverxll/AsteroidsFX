@@ -5,7 +5,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.enemy.Enemy;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
-import dk.sdu.mmmi.cbse.weapon.WeaponSPI;
+import dk.sdu.mmmi.cbse.common.weapon.WeaponSPI;
 
 import java.util.Collection;
 import java.util.Random;

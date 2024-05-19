@@ -5,9 +5,6 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.player.Player;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
-
-import dk.sdu.mmmi.cbse.common.weapon.Weapon;
-import dk.sdu.mmmi.cbse.weapon.WeaponSPI;
 import javafx.scene.paint.Color;
 
 import java.util.Collection;
