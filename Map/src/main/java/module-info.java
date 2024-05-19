@@ -1,9 +1,13 @@
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
+import dk.sdu.mmmi.cbse.map.MapPlugin;
+import dk.sdu.mmmi.cbse.common.map.MapSPI;
 
 module Map {
     exports dk.sdu.mmmi.cbse.map;
     requires Common;
+    requires CommonMap;
     requires javafx.graphics;
     requires java.desktop;
-    provides IGamePluginService with dk.sdu.mmmi.cbse.map.MapPlugin;
+    provides IGamePluginService with MapPlugin;
+    provides MapSPI with MapPlugin;
 }

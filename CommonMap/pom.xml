@@ -6,22 +6,15 @@
         <artifactId>asteroids.jpms</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>Map</artifactId>
-    <name>Archetype - Map</name>
+    <artifactId>CommonMap</artifactId>
+    <name>Archetype - CommonMap</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
-            <groupId>dk.sdu.mmmi.cbse</groupId>
-            <artifactId>Common</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>dk.sdu.mmmi.cbse</groupId>
-            <artifactId>CommonMap</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
         </dependency>
     </dependencies>
     <packaging>jar</packaging>
+
 </project>

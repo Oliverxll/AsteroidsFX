@@ -31,7 +31,7 @@ public class EnemyPlugin implements IGamePluginService {
         enemy.setY(rand.nextInt(gameData.getDisplayWidth()));
         enemy.setRadius(8);
         enemy.setRotation(rand.nextInt(360));
-        enemy.setHealth(3);
+        enemy.setHealth(2);
         enemy.setColor(Color.RED);
         enemy.setMoveSpeed(150);
         enemy.setTurnSpeed(100);
