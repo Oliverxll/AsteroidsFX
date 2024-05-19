@@ -24,6 +24,7 @@
         <module>Bullet</module>
         <module>CommonWeapon</module>
         <module>Weapon</module>
+        <module>CommonMap</module>
         <module>Map</module>
         <module>CommonMap</module>
     </modules>
