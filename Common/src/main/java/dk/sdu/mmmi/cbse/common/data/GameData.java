@@ -1,5 +1,9 @@
 package dk.sdu.mmmi.cbse.common.data;
 
+import javafx.scene.text.Text;
+
+import java.util.List;
+
 public class GameData {
 
     private int displayWidth  = 800 ;
@@ -9,6 +13,7 @@ public class GameData {
     private long lastFrameTime;
 
     private double deltaTime;
+    private List<Text> HUDElements;
 
 
     public GameKeys getKeys() {

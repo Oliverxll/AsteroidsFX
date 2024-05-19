@@ -20,9 +20,16 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class Main extends Application {
 
@@ -30,6 +37,10 @@ public class Main extends Application {
     private final World world = new World();
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
     private final Pane gameWindow = new Pane();
+    private Text score;
+
+    private HttpClient client = HttpClient.newHttpClient();
+
 
     public static void main(String[] args) {
         launch(Main.class);
@@ -37,9 +48,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage window) throws Exception {
-        Text text = new Text(10, 20, "Destroyed asteroids: 0");
         gameWindow.setPrefSize(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-        gameWindow.getChildren().add(text);
 
         Scene scene = new Scene(gameWindow);
         scene.setOnKeyPressed(event -> {
@@ -83,6 +92,23 @@ public class Main extends Application {
             gameWindow.getChildren().add(mapView);
         });
 
+        score = new Text(10, 20, "Destroyed asteroids: ");
+        score.setStroke(Color.WHITE);
+        gameWindow.getChildren().add(score);
+
+        HttpRequest requestGetScore = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/score/set/0"))
+                .PUT(HttpRequest.BodyPublishers.ofString(""))
+                .build();
+
+        // Retrieves the score for amount of asteroids destroyed.
+        try {
+            HttpResponse<String> responseGetScore = client.send(requestGetScore, HttpResponse.BodyHandlers.ofString());
+            score.setText("Destroyed asteroids: " + responseGetScore.body());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         for (Entity entity : world.getEntities()) {
             Polygon polygon = new Polygon(entity.getPolygonCoordinates());
             polygons.put(entity, polygon);
@@ -93,7 +119,6 @@ public class Main extends Application {
         window.setTitle("ASTEROIDS");
         window.setResizable(false);
         window.show();
-
     }
 
     private void render() {
@@ -116,7 +141,19 @@ public class Main extends Application {
         }
         for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices()) {
             postEntityProcessorService.process(gameData, world);
-        }       
+        }
+
+        HttpRequest requestGetScore = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/score/get"))
+                .GET().build();
+
+        // Retrieves the score for amount of asteroids destroyed.
+        try {
+            HttpResponse<String> responseGetScore = client.send(requestGetScore, HttpResponse.BodyHandlers.ofString());
+            score.setText("Destroyed asteroids: " + responseGetScore.body());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void draw() {        

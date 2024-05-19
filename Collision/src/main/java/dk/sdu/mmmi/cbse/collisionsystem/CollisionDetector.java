@@ -8,11 +8,15 @@ import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class CollisionDetector implements IPostEntityProcessingService {
 
-    public CollisionDetector() {
-    }
+    HttpClient client = HttpClient.newHttpClient();
 
     @Override
     public void process(GameData gameData, World world) {
@@ -52,6 +56,8 @@ public class CollisionDetector implements IPostEntityProcessingService {
                             if (entity2 instanceof Asteroid) {
                                 entity2.setHealth(entity2.getHealth() - 1); // Asteroid handled in AsteroidControlSystem.
                                 ((Asteroid) entity2).setHit(true);
+
+                                incrementScore(1);
                             }
 
                             if (entity2 instanceof Enemy) {
@@ -78,6 +84,19 @@ public class CollisionDetector implements IPostEntityProcessingService {
         float dy = (float) entity1.getY() - (float) entity2.getY();
         float distance = (float) Math.sqrt(dx * dx + dy * dy);
         return distance < (entity1.getRadius() + entity2.getRadius());
+    }
+
+    private void incrementScore(int i) {
+        HttpRequest requestAddToScore = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/score/add/" + i))
+                .PUT(HttpRequest.BodyPublishers.ofString(""))
+                .build();
+
+        try {
+            client.send(requestAddToScore, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

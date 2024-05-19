@@ -3,6 +3,7 @@ module Core {
     requires CommonBullet;    
     requires javafx.graphics;
     requires CommonMap;
+    requires java.net.http;
     opens dk.sdu.mmmi.cbse.main to javafx.graphics;
     uses dk.sdu.mmmi.cbse.common.services.IGamePluginService;
     uses dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
