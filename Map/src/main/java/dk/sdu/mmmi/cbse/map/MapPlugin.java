@@ -1,21 +1,17 @@
 package dk.sdu.mmmi.cbse.map;
 
-import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.map.MapSPI;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
 
-import javax.imageio.ImageIO;
-import java.io.InputStream;
 import java.net.URL;
 
 
-public class MapPlugin implements IGamePluginService {
-    private ImageView map;
+public class MapPlugin implements IGamePluginService, MapSPI {
+    private static ImageView map;
 
     @Override
     public void start(GameData gameData, World world) {
@@ -30,7 +26,6 @@ public class MapPlugin implements IGamePluginService {
         } catch (Exception e) {
             System.out.println("No map image found.");
         }
-
     }
 
     public Image getImage(){
@@ -47,7 +42,11 @@ public class MapPlugin implements IGamePluginService {
         return null;
     }
 
+    @Override
     public ImageView getMap() {
+        System.out.println("Returning map");
+        System.out.println(map.getImage().getUrl());
+        System.out.println(map);
         return map;
     }
 

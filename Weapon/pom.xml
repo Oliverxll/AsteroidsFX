@@ -7,7 +7,7 @@
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>Weapon</artifactId>
-    <name>Archetype - Weapon</name>
+    <name>Weapon</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>

@@ -4,6 +4,7 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.GameKeys;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.map.MapSPI;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
@@ -13,7 +14,6 @@ import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
 import static java.util.stream.Collectors.toList;
 
-import dk.sdu.mmmi.cbse.map.MapPlugin;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -76,12 +76,13 @@ public class Main extends Application {
         for (IGamePluginService iGamePlugin : getPluginServices()) {
             System.out.println("Starting plugin: " + iGamePlugin.getClass().getSimpleName());
             iGamePlugin.start(gameData, world);
-
-            if (iGamePlugin instanceof MapPlugin) {
-                ImageView mapView = ((MapPlugin) iGamePlugin).getMap();
-                gameWindow.getChildren().add(mapView);
-            }
         }
+
+        getMapServices().stream().findFirst().ifPresent(SPI -> {
+            ImageView mapView = SPI.getMap();
+            gameWindow.getChildren().add(mapView);
+        });
+
         for (Entity entity : world.getEntities()) {
             Polygon polygon = new Polygon(entity.getPolygonCoordinates());
             polygons.put(entity, polygon);
@@ -90,7 +91,9 @@ public class Main extends Application {
         render();
         window.setScene(scene);
         window.setTitle("ASTEROIDS");
+        window.setResizable(false);
         window.show();
+
     }
 
     private void render() {
@@ -150,5 +153,9 @@ public class Main extends Application {
 
     private Collection<? extends IPostEntityProcessingService> getPostEntityProcessingServices() {
         return ServiceLoader.load(IPostEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+    }
+
+    private Collection<? extends MapSPI> getMapServices() {
+        return ServiceLoader.load(MapSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 }
