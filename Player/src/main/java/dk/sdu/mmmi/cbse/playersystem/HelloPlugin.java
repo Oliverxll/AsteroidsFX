@@ -6,20 +6,13 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.player.Player;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
-import dk.sdu.mmmi.cbse.common.weapon.Weapon;
-import dk.sdu.mmmi.cbse.weapon.WeaponSPI;
 import javafx.scene.paint.Color;
 
-import java.util.Collection;
-import java.util.ServiceLoader;
-
-import static java.util.stream.Collectors.toList;
-
-public class PlayerPlugin implements IGamePluginService {
+public class HelloPlugin implements IGamePluginService {
 
     private Entity player;
 
-    public PlayerPlugin() {
+    public HelloPlugin() {
     }
 
     @Override

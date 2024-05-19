@@ -9,7 +9,7 @@ import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import java.util.Random;
 import javafx.scene.paint.Color;
 
-public class EnemyPlugin implements IGamePluginService {
+public class HelloPlugin implements IGamePluginService {
     private Entity enemy;
 
     @Override

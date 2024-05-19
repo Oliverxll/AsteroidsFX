@@ -13,7 +13,7 @@ import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
 
-public class EnemyControlSystem implements IEntityProcessingService {
+public class HelloController implements IEntityProcessingService {
 
     private Random rand = new Random();
 
@@ -31,7 +31,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
             spawnTimer -= spawnRate;
             System.out.println("Spawning enemy");
 
-            world.addEntity(new EnemyPlugin().createEnemy(gameData));
+            world.addEntity(new HelloPlugin().createEnemy(gameData));
         }
 
         for (Entity entity : world.getEntities(Enemy.class)) {

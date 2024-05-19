@@ -1,6 +1,8 @@
 
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
+import dk.sdu.mmmi.cbse.playersystem.HelloController;
+import dk.sdu.mmmi.cbse.playersystem.HelloPlugin;
 
 module Player {
     requires Common;
@@ -12,7 +14,7 @@ module Player {
     requires Weapon;
     uses dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
     uses dk.sdu.mmmi.cbse.weapon.WeaponSPI;
-    provides IGamePluginService with dk.sdu.mmmi.cbse.playersystem.PlayerPlugin;
-    provides IEntityProcessingService with dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
+    provides IGamePluginService with HelloPlugin;
+    provides IEntityProcessingService with HelloController;
     
 }
