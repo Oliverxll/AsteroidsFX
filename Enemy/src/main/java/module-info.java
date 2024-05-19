@@ -1,7 +1,8 @@
+import dk.sdu.mmmi.cbse.HelloFrom;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
-import dk.sdu.mmmi.cbse.enemy.system.HelloController;
-import dk.sdu.mmmi.cbse.enemy.system.HelloPlugin;
+import dk.sdu.mmmi.cbse.HelloController;
+import dk.sdu.mmmi.cbse.HelloPlugin;
 
 module Enemy {
     requires javafx.graphics;
@@ -12,6 +13,6 @@ module Enemy {
 
     uses dk.sdu.mmmi.cbse.weapon.WeaponSPI;
 
-    provides IGamePluginService with HelloPlugin;
+    provides IGamePluginService with HelloPlugin, HelloFrom;
     provides IEntityProcessingService with HelloController;
 }

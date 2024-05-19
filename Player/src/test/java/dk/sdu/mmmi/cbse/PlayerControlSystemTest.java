@@ -1,11 +1,11 @@
-package dk.sdu.mmmi.cbse.playersystem;
+package dk.sdu.mmmi.cbse;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.GameKeys;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.player.Player;
-import dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
+import dk.sdu.mmmi.cbse.HelloController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class PlayerControlSystemTest {
-    private PlayerControlSystem playerControlSystem;
+    private HelloController playerControlSystem;
     @Mock
     private GameData gameData;
     @Mock
@@ -27,7 +27,7 @@ public class PlayerControlSystemTest {
 
     @BeforeEach
     public void setUp() {
-        playerControlSystem = new PlayerControlSystem();
+        playerControlSystem = new HelloController();
         gameData = mock(GameData.class);
         world = mock(World.class);
         player = mock(Player.class);
