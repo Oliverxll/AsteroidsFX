@@ -1,7 +1,7 @@
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.weapon.WeaponControlSystem;
-import dk.sdu.mmmi.cbse.weapon.WeaponSPI;
+import dk.sdu.mmmi.cbse.common.weapon.WeaponSPI;
 
 module Weapon {
     exports dk.sdu.mmmi.cbse.weapon;
