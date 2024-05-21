@@ -1,4 +1,5 @@
 module Core {
+    requires javafx.graphics;
     requires Common;
     requires CommonMap;
     requires spring.context;
