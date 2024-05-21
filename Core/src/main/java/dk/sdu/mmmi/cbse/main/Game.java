@@ -43,6 +43,11 @@ public class Game {
         this.entityProcessingServiceList = entityProcessingServiceList;
         this.postEntityProcessingServices = postEntityProcessingServices;
         this.mapServices = mapServices;
+
+        System.out.println(gamePluginServices.stream().count());
+        System.out.println(entityProcessingServiceList.stream().count());
+        System.out.println(postEntityProcessingServices.stream().count());
+        System.out.println(mapServices.stream().count());
     }
 
 

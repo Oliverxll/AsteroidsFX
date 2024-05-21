@@ -22,11 +22,11 @@ class ModuleConfig {
 
     @Bean
     public Game game(){
-        return new Game(getGamePluginServices(), geteEntityProcessingServices(), getPostEntityProcessingServices(), getMapServices());
+        return new Game(getGamePluginServices(), getEntityProcessingServices(), getPostEntityProcessingServices(), getMapServices());
     }
 
     @Bean
-    public List<IEntityProcessingService> geteEntityProcessingServices(){
+    public List<IEntityProcessingService> getEntityProcessingServices(){
         return ServiceLoader.load(IEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
