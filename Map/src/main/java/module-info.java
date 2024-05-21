@@ -3,7 +3,6 @@ import dk.sdu.mmmi.cbse.map.MapPlugin;
 import dk.sdu.mmmi.cbse.common.map.MapSPI;
 
 module Map {
-    exports dk.sdu.mmmi.cbse.map;
     requires Common;
     requires CommonMap;
     requires javafx.graphics;
